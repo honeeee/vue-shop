@@ -1,5 +1,12 @@
-<script >
-import { ref } from '@vue/reactivity';
+<script setup lang="ts">
+import {ref} from 'vue';
+
+const users2 = ref([
+  {"id": 1, "name": "홍길동1", "age": 22},
+  {"id": 2, "name": "홍길동2", "age": 43},
+  {"name": "홍길동3", "age": 11, "id": 3},
+]);
+
 
 // fetch ~ promise
 let users3 = ref<any[]>([]);
