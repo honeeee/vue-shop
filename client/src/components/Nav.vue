@@ -18,8 +18,8 @@ import { ref } from 'vue'
             <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
                 <nav>
                     <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
-                        <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/">Shop</router-link></li>
-                        <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/products">Product</router-link></li>
+                        <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/">Home</router-link></li>
+                        <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/products">Products</router-link></li>
                     </ul>
                 </nav>
             </div>

@@ -33,8 +33,15 @@ async function getProducts2(){      // async는 무조건 promise함수임!!
 
 // 데이터는 언제 오는지 상관없다 
 
+// id받는 함수추가!!
+async function getProductId(id){ 
+    const res = await fetch(`http://localhost:3000/products/${id}`)
+    return await res.json(); 
+}
 
-export {getProduct, getProducts2}
+
+
+export {getProduct, getProducts2,getProductId}
 
 // vue파일은 실제로 글로벌스콥에서 실행되는게 아니다.
 

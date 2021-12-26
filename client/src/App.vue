@@ -5,6 +5,7 @@ import Footer from './components/Footer.vue';
 import About from './components/About.vue';
 import Nav from './components/Nav.vue';
 
+
 // const users2 = ref([
 //   {"id": 1, "name": "홍길동1", "age": 22},
 //   {"id": 2, "name": "홍길동2", "age": 43},
@@ -44,7 +45,7 @@ import Nav from './components/Nav.vue';
 
 // 뷰에서만 글로벌 스콥에서 await 사용가능
 
-const products = ref<any[]>()
+const products = ref<any[]>([])
 async function loadProducts(){
   products.value = await getProduct()
 }

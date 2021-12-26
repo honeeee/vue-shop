@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "vite --port 5600 --host",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
-    "json": "json-server --watch db.json --port 3001"
+    "preview": "vite preview"
+    
   },
   "dependencies": {
     "vue": "^3.2.25",
