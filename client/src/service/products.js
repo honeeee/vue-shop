@@ -33,11 +33,15 @@ async function getProducts2(){      // async는 무조건 promise함수임!!
 
 // 데이터는 언제 오는지 상관없다 
 
-// id받는 함수추가!!
+// id받아서 id별 정보 보여주기
 async function getProductId(id){ 
     const res = await fetch(`http://localhost:3000/products/${id}`)
     return await res.json(); 
 }
+
+// function addToCart(id){
+//     const res = fetch()
+// }
 
 
 

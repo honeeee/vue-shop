@@ -34,6 +34,20 @@ async function loadProducts(){
 
 loadProducts()
 
+// export default{
+//     setup() {
+        
+//         addToCart() {
+//             this.$store.dispatch("addProductToCart", {
+//                 product: this.product,
+//                 quantity: 1
+//             });
+
+//         }
+//     },
+// }
+
+
 </script>
 
 <template>
