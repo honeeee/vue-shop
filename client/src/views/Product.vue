@@ -13,9 +13,23 @@ async function loadProdout(){
 }
 loadProdout()
 
-function addCart(){
-  
-}
+import axios from 'axios';
+
+// export default {
+//     name: "addToCart",
+//     data() {
+//         return {
+//             cart: []
+//         };
+//     },
+//     async addToCart(id){
+//         try{
+//             const res = await axios.get(`http://localhost:3000/cart`);
+//         }catch(e){
+//           console.log(e);
+//         }
+//     }
+// };
 
 </script>
 

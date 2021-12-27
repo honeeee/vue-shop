@@ -39,9 +39,7 @@ async function getProductId(id){
     return await res.json(); 
 }
 
-// function addToCart(id){
-//     const res = fetch()
-// }
+
 
 
 

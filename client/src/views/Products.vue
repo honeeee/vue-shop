@@ -35,17 +35,41 @@ async function loadProducts(){
 loadProducts()
 
 // export default{
+//     props:{
+
+//     },
 //     setup() {
         
-//         addToCart() {
+//         const addToCart() {
 //             this.$store.dispatch("addProductToCart", {
 //                 product: this.product,
 //                 quantity: 1
 //             });
 
 //         }
-//     },
+
+//         return{
+//             addToCart,
+//         }
+//     }
 // }
+
+
+// export default {
+//   name: "ProductPage",
+//   data() {
+//     const index = this.$route.params.contentId;
+//     return {
+//       product: this.$store.state.db[index]
+//     };
+//   },
+//   methods: {
+//     addToCart(product) {
+//       this.$store.dispatch("addToCart", product);
+//     },
+    
+//   },
+// };
 
 
 </script>
@@ -166,7 +190,7 @@ loadProducts()
                     <p class="pt-1 text-gray-900">{{prd.price}}</p>
                 </router-link>
                 <div>
-                    <button class="bg-gray-200 px-4 py-2 rounded" @click="addToCart">장바구니 추가</button>
+                    <button class="bg-gray-200 px-4 py-2 rounded" @click="addToCart(prd)">장바구니 추가</button>
                 </div>
             </div>
 
