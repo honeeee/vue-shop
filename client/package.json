@@ -5,11 +5,11 @@
     "dev": "vite --port 5600 --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
-    
   },
   "dependencies": {
     "vue": "^3.2.25",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

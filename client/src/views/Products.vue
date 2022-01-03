@@ -1,36 +1,35 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
+import {getProduct} from '../service/products'
+import { useStore } from 'vuex'
 // 상세 페이지까지 만들었음
 // 스크림트에서 라우터 쓰는 방법
 // useRouter: link로 보낼때, 뒤로가기앞으로 가기 등등 여러 기능있음
 // fullpath
-//
 // query =내가 보낸 값들이 들어있음
 // useRoute: 현재 이 페이지의 정보를 담고있는 객체, 변경을 감지
 
-// 상세페이지
-// 넘어온 id를 받아서
-// tsalcuTek. const route = UseRoute()
-// const id = route.query.id
-// 
-// 템플릿 적용
-// 네비 컴포넌트 만듬
-// app.vue 에  네비 넣어줘
+// 상세페이지-넘어온 id를 받아서-tsalcuTek. const route = UseRoute()-const id = route.query.id
 /** 
  * 네비에 링크 라우터로 변경해주고
  * 푸터도 나눠줌->컴포넌트 생성
- * 어바웃도 나눠주고, nav도 나눠줌.
- * 상품목록도 우리 기존껄로 병경
- * 
- * 템플릿 적용 직접해보기!
- * 
+ * 어바웃도 나눠주고, nav
  */
-import {getProduct} from '../service/products';
-
 const products = ref<any[]>([])
+const store = useStore();
+const cart = computed(()=> store.state.cart)
+
 async function loadProducts(){
     products.value = await getProduct()
 }
+
+onMounted(()=> {
+    console.log(store.state.cart)
+})
+function toggleCart(id:number){
+    store.commit('toggleItem',id);
+}
+
 
 loadProducts()
 
@@ -178,12 +177,15 @@ loadProducts()
             </nav>
 
             <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col" 
-                v-for="prd in products">
+                v-for="prd in products" :key="prd.id">
                 <router-link :to="`/product?id=${prd.id}`">
                     <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
                     <div class="pt-3 flex items-center justify-between">
                         <p class="">{{prd.name}}</p>
-                        <svg class="h-6 w-6 fill-current text-gray-500 hover:text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <svg class="h-6 w-6 fill-current text-gray-500"
+                            :class="{'text-red-500': cart.includes(prd.id)}"
+                            @click.prevent="toggleCart(prd.id)"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M12,4.595c-1.104-1.006-2.512-1.558-3.996-1.558c-1.578,0-3.072,0.623-4.213,1.758c-2.353,2.363-2.352,6.059,0.002,8.412 l7.332,7.332c0.17,0.299,0.498,0.492,0.875,0.492c0.322,0,0.609-0.163,0.792-0.409l7.415-7.415 c2.354-2.354,2.354-6.049-0.002-8.416c-1.137-1.131-2.631-1.754-4.209-1.754C14.513,3.037,13.104,3.589,12,4.595z M18.791,6.205 c1.563,1.571,1.564,4.025,0.002,5.588L12,18.586l-6.793-6.793C3.645,10.23,3.646,7.776,5.205,6.209 c0.76-0.756,1.754-1.172,2.799-1.172s2.035,0.416,2.789,1.17l0.5,0.5c0.391,0.391,1.023,0.391,1.414,0l0.5-0.5 C14.719,4.698,17.281,4.702,18.791,6.205z" />
                         </svg>
                     </div>

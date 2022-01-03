@@ -5,6 +5,7 @@ import {createRouter,createWebHashHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import Products from './views/Products.vue'
 import Product from './views/Product.vue'
+import { createStore } from 'vuex'
 
 // const Home = { template: '<div>Home</div>' }
 // const Product = { template: '<div>Product</div>' }
@@ -24,6 +25,25 @@ const router = createRouter({
     routes, // short for `routes: routes`
   })
 
-createApp(App)
-.use(router)
-.mount('#app')
+
+// Create a new store instance.
+const store = createStore<{cart: number[]}>({
+  state () {
+    return {
+      cart: [ 1,2 ],
+    }
+  },
+  mutations: {
+    toggleItem (state, id) {
+      const index = state.cart.indexOf(id);
+
+      if(index > -1) { //존재하면 
+        state.cart.splice(index,1);
+      }else{
+        state.cart.push(id);
+      }
+    },
+  }
+})
+
+createApp(App).use(router).use(store).mount('#app')

@@ -3,6 +3,7 @@ import vuex from 'vuex'
 import DB from '../db.json'
 
 vue.use(vuex)
+// 뷰의 상태관리기능
 
 export const store = new vuex.store({
 

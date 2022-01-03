@@ -13,7 +13,7 @@ async function loadProdout(){
 }
 loadProdout()
 
-import axios from 'axios';
+// import axios from 'axios';
 
 // export default {
 //     name: "addToCart",

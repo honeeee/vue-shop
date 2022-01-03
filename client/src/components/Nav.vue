@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+
+const store = useStore();
+const cart = computed(() => store.state.cart)
 
 </script>
 <template>
@@ -19,7 +24,7 @@ import { ref } from 'vue'
                 <nav>
                     <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                         <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/">Home</router-link></li>
-                        <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/products">Products</router-link></li>
+                        <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/products">Products(cart : {{ cart.length}})</router-link></li>
                     </ul>
                 </nav>
             </div>
