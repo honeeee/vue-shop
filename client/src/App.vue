@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {ref} from 'vue';
-import {getProduct} from './service/products';
+import {onMounted, ref} from 'vue';
+import {getAllCartItem, getProduct} from './service/products';
 import Footer from './components/Footer.vue';
 import About from './components/About.vue';
 import Nav from './components/Nav.vue';
+import {useStore} from 'vuex';
 
-
+/* 
 // const users2 = ref([
 //   {"id": 1, "name": "홍길동1", "age": 22},
 //   {"id": 2, "name": "홍길동2", "age": 43},
@@ -44,13 +45,25 @@ import Nav from './components/Nav.vue';
 // loadUsers();
 
 // 뷰에서만 글로벌 스콥에서 await 사용가능
-
+*/
 const products = ref<any[]>([])
+const store = useStore();
+const carts = ref<any[]>([])
+
 async function loadProducts(){
   products.value = await getProduct()
 }
 
-loadProducts()
+async function loadCarts(){
+  carts.value = await getAllCartItem();
+  carts.value.forEach(({id}) => store.commit('toggleItem', id))
+}
+
+onMounted(() => {
+  loadCarts();
+})
+
+//loadProducts()
 </script>
 
 

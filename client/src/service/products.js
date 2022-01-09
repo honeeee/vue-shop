@@ -1,5 +1,6 @@
-// 2021.12.21
+import axios from 'axios';
 
+// 2021.12.21
 function abc (data){
     return data.map(d => {
         // return {...d}
@@ -14,12 +15,10 @@ function abc (data){
 
 function getProduct(){
     return fetch('http://localhost:3000/products')
-    .then(res => res.json())
-                            // .then(data => data)
+    .then(res => res.json()) // .then(data => data)
                             // then안에는 functiond을써야하고 무조건 리턴해줘야함 제발..
-    .then(abc)
-                        // 이렇게 쓰려면 안에가 함수여야한다!! 함수는 위에
-                        // map도 받는 인자가 function임
+    .then(abc) // 이렇게 쓰려면 안에가 함수여야한다!! 함수는 위에
+                // map도 받는 인자가 function임
 }
 // promise 는  return 을 해줘야 그게 프로미스임.
 
@@ -40,15 +39,71 @@ async function getProductId(id){
 }
 
 
+// 1/4일
+// axios버전
+async function getProducts3(){
+    const res = await axios('http://localhost:3000/products')
+    return res.data(); //
+}
 
+// 타입스크립트는 위에 객체 타입 domian처럼 선언 
+// fetch, axios 같은 post 방식이지만 형태가 좀 다름
+// 1. fetch
+async function addProductFetch(product){
+    return await fetch('http://localhost:3000/products',{
+        method: 'post',
+    headers: {
+        'Content-Type': 'apllication/json'
+    },
+    body: JSON.stringify(product)
 
+    });
+}
+// axios
+async function addProduct(product){
+    return await axios.post('http://localhost:3000/product', product,{
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    });
+}
 
-export {getProduct, getProducts2,getProductId}
+// cart에 아이템 추가
+async function addItemToCart(item){
+    return await axios.post('http://localhost:3000/cart', item, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+}
+
+// cart목록조회
+async function getAllCartItem() {
+    const res = await axios.get('http://localhost:3000/cart')
+    return res.data;
+}
+
+// cart아이템 삭제
+async function deleteCartItem(id){
+    try{
+        await axios.delete(`http://localhost:3000/cart/${id}`)
+        return true;
+    }catch (e) {
+        return false;
+    }
+}
+
+export {
+    getProduct, 
+    getProducts2,
+    getProductId,
+    addProductFetch, // fetch형식으로 아이템추가
+    addProduct, // axios형식으로 아이템 추가
+    addItemToCart,
+    getAllCartItem,
+    deleteCartItem,
+
+}
 
 // vue파일은 실제로 글로벌스콥에서 실행되는게 아니다.
 
-
-// 디자인템플릿 적용
-// 장바구니 담기
-// 이벤트헨들링
-// 
