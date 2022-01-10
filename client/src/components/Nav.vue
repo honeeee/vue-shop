@@ -25,6 +25,7 @@ const cart = computed(() => store.state.cart)
                     <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                         <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/">Home</router-link></li>
                         <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/products">Products(cart : {{ cart.length}})</router-link></li>
+                        <li><router-link class="inline-block no-underline hover:text-black hover:underline py-2 px-4" to="/join">Register</router-link></li>
                     </ul>
                 </nav>
             </div>

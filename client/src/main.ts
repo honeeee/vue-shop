@@ -5,6 +5,8 @@ import {createRouter,createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import Products from './views/Products.vue'
 import Product from './views/Product.vue'
+import Register from './views/Register.vue'
+import Join from './views/Join.vue'
 import { createStore } from 'vuex'
 
 // const Home = { template: '<div>Home</div>' }
@@ -16,7 +18,8 @@ import { createStore } from 'vuex'
 const routes = [
   { path: '/', component: Home },
   { path: '/product', component: Product },
-  { path: '/products', component: Products }
+  { path: '/products', component: Products },
+  { path: '/join', component: Register },
 ]
 
 
@@ -30,7 +33,8 @@ const router = createRouter({
 const store = createStore<{cart: number[]}>({
   state () {
     return {
-      cart: [ ],
+      cart: [],
+      user: [],
     }
   },
   mutations: {
