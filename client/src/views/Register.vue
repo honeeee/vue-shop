@@ -2,19 +2,19 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import {addUserInfo} from '../service/user';
+import {useRouter} from 'vue-router';
 
 const userId = ref<string>();
 const email = ref<string>();
 const password = ref<string>();
 const password2 = ref<string>();
+const router = useRouter()
 
 const error = ref<string>();
 const messege = ref<string>();
 
-
 async function signupUser(){
-
-    // 값이 없으면 focus... 왜안됨.........
+    // 값이 없으면 focus.........
     if(!userId.value){
         const fo = document.getElementById('userId');
         fo?.focus();
@@ -40,25 +40,18 @@ async function signupUser(){
         alert('확인 비밀번호를 입력하세요');
         return false;
     }
-    // userId 중복체크
-    async function checkId(){
-        const list = await axios.get('http://localhost:3000/user');
-        const result = list.data.filter(()=> {
-            return list.data.userId == userId.value;
-        })
-        const result2 = list.data.filter(a =>
-            a.userId == userId.value
-        );
-        console.log(result);
-        if(result == null){
-            alert('중복된 아이디입니다.');
-            return false;
-        }
-        
+    checkId()
+}
+
+// userId 중복체크
+async function checkId(){
+    const res = await axios.get('http://localhost:3000/user/?userId='+userId.value);
+
+    if(res.data.length > 0){
+        alert('이미 등록된 아이디입니다.');
+        return;
     }
-
-
-
+    
     // password 같은지체크
     if(password.value != password2.value){
         alert('비밀번호가 일치하지않습니다.');
@@ -77,7 +70,8 @@ async function signupUser(){
     email.value="";
     password.value="";
     password2.value="";
-    
+    router.push('/login');
+
 }
 
 </script>
