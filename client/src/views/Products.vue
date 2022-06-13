@@ -42,7 +42,7 @@ async function toggleCart(id:number){
 
 async function searchProducts(){
     await loadProducts();
-    console.log(searchText.value);
+    // console.log(searchText.value);
     const search = computed(() => {
         return products.value.filter( poke => {
             return poke.name.toLowerCase().includes(searchText.value);
@@ -51,6 +51,17 @@ async function searchProducts(){
     return products.value = search.value;
 }
 
+function lowPrice(){
+    products.value  = products.value.sort((a, b) => (a['price'] > b['price'] ? 1 : -1));
+}
+
+function sortPrice(sortName : string){
+    if(sortName == 'high'){
+        products.value = products.value.sort((a, b) => (a[sortName] < b[sortName] ? 1 : -1));
+    }else{
+        console.log('gg~')
+    }
+}
 
 
 loadProducts();
@@ -71,7 +82,8 @@ loadProducts();
 			</a>
 
                     <div class="flex items-center" id="store-nav-content">
-
+                    <button @click="lowPrice">가격 낮은순</button>
+                    <button @click="sortPrice('high')">가격 높은순</button>
                         <a class="pl-3 inline-block no-underline hover:text-black" href="#">
                             <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
@@ -163,4 +175,5 @@ loadProducts();
   /*Set to match the Tailwind colour you want the active one to be */
 }
 
+button {@apply px-2 py-1 border bg-blue-100 rounded;}
 </style>
