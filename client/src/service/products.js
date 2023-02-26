@@ -8,7 +8,7 @@ function abc (data){
         // ...은 다 풀어서 넘겨주는거 
         return {
             ...d,
-            price: d.price + '원'// 이렇게 하면 기존값에 엎어친다.
+            price: d.price // 이렇게 하면 기존값에 엎어친다.
         }
     })
 }
@@ -92,6 +92,7 @@ async function deleteCartItem(id){
         return false;
     }
 }
+
 
 export {
     getProduct, 
