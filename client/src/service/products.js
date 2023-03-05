@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 // 2021.12.21
 function abc (data){
@@ -8,7 +9,8 @@ function abc (data){
         // ...은 다 풀어서 넘겨주는거 
         return {
             ...d,
-            price: d.price // 이렇게 하면 기존값에 엎어친다.
+            price: d.price, // 이렇게 하면 기존값에 엎어친다.
+            category: d.category
         }
     })
 }
@@ -93,6 +95,31 @@ async function deleteCartItem(id){
     }
 }
 
+//카테고리 조회
+function selectCategory (data){
+    return data.map(d => {
+        return {
+            category: d.category
+        }
+    })
+}
+
+async function getCategory(){      // async는 무조건 promise함수임!!
+    
+    return fetch('http://localhost:3000/products')
+    .then(res => res.json()) // .then(data => data)
+                            // then안에는 functiond을써야하고 무조건 리턴해줘야함 제발..
+    // 일단 기본적으로 중복제거가 안됨 
+    // 데이터형식이 문제인가..?
+    // 
+    .then(selectCategory)  
+    //.then(products.value.map)
+    //.then([...new Set(selectCategory.map(JSON.stringify))].map(JSON.parse))
+    
+    
+    //.then(_.uniqBy(selectCategory,'category'));// 모든데이터 다 셀렉됨 ㅡㅡ
+    //return _.uniqBy(selectCategory,'category') // 모든데이터 다 셀렉됨 ㅡㅡ
+}
 
 export {
     getProduct, 
@@ -103,6 +130,7 @@ export {
     addItemToCart,
     getAllCartItem,
     deleteCartItem,
+    getCategory,
 
 }
 
