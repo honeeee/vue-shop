@@ -112,7 +112,10 @@ async function getCategory(){      // async는 무조건 promise함수임!!
     // 일단 기본적으로 중복제거가 안됨 
     // 데이터형식이 문제인가..?
     // 
-    .then(selectCategory)  
+    .then(selectCategory)
+    //.map(JSON.stringify)
+    //.map(JSON.parse)
+    //.then([(selectCategory.map(JSON.stringify))].map(JSON.parse));
     //.then(products.value.map)
     //.then([...new Set(selectCategory.map(JSON.stringify))].map(JSON.parse))
     
@@ -120,6 +123,20 @@ async function getCategory(){      // async는 무조건 promise함수임!!
     //.then(_.uniqBy(selectCategory,'category'));// 모든데이터 다 셀렉됨 ㅡㅡ
     //return _.uniqBy(selectCategory,'category') // 모든데이터 다 셀렉됨 ㅡㅡ
 }
+
+//카테고리별 목록리스트
+async function getCategoryProduct(category){
+    return await fetch(`http://localhost:3000/products/?category=${category}`)
+    .then(res => res.json()) // .then(data => data),  functiond을써야하고 무조건 리턴해줘야함 제발..
+    .then(abc)
+    //처음에 안된 이유 : 주소 잘못씀, type없이 넘겨줌 됐다!!
+}
+
+
+
+
+
+
 
 export {
     getProduct, 
@@ -131,6 +148,7 @@ export {
     getAllCartItem,
     deleteCartItem,
     getCategory,
+    getCategoryProduct,
 
 }
 

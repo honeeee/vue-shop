@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue';
-import {addItemToCart, getProduct, getCategory} from '../service/products';
+import {addItemToCart, getProduct, getCategory, getCategoryProduct} from '../service/products';
 import { useStore } from 'vuex'
 
 
@@ -13,6 +13,9 @@ async function loadCategory(){
 
     //js로 중복제거는 일단 완성했는데.. uniqBy로 해보고 싶은데.. 안된다....
     //console.log(([...new Set(products.value.map(JSON.stringify))].map(JSON.parse)))
+
+console.log(products.value);
+
 }
 
 function addToCart() {
@@ -24,23 +27,23 @@ function addToCart() {
 }
 
 
+
+
+
 loadCategory();
 </script>
 
 <template>
 
   <div>
-<div class="frame">
-  <!-- <button class="custom-btn btn-2">Read More</button> -->
-    <!-- <div v-for="cate in products" :key="cate.id"> -->
-        <button v-for="cate in products" :key="cate.category" @click="goToCategoryProduct"
-        class="custom-btn btn-2" >
-          {{cate.category}}
-        </button>
-    <!-- </div> -->
-    
-</div>
-</div>
+    <div class="frame">
+      <button v-for="cate in products" :key="cate.category" @click="goToCategoryProduct" class="custom-btn btn-2" >
+          <router-link :to="`/products/?category=${cate.category}`">
+            {{cate.category}}
+          </router-link>
+      </button>
+    </div>
+  </div>
 
 
 

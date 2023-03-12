@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
-import {addItemToCart, deleteCartItem, getProduct} from '../service/products'
+import { addItemToCart, deleteCartItem, getProduct, getCategoryProduct } from '../service/products'
 import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 // 상세 페이지까지 만들었음
 // 스크림트에서 라우터 쓰는 방법
@@ -22,8 +23,18 @@ const cart = computed(()=> store.state.cart)
 // const searchText = ref<string>();
 const searchText = ref("");
 
+const route = useRoute()
+const router = useRouter()
+const selectCate = route.query.category as string
+
 async function loadProducts(){
-    products.value = await getProduct()
+    if(!selectCate){
+        products.value = await getProduct()
+    }else{
+        products.value = await getCategoryProduct(selectCate)
+
+    }
+    
 }
 
 onMounted(()=> {
