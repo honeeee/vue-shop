@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
-import { addItemToCart, deleteCartItem, getProduct, getCategoryProduct } from '../service/products'
+import { addItemToCart, deleteCartItem, getProduct, getCategoryProduct, getCategory } from '../service/products'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
@@ -22,6 +22,7 @@ const store = useStore();
 const cart = computed(()=> store.state.cart)
 // const searchText = ref<string>();
 const searchText = ref("");
+const cateList = ref<any[]>([])
 
 const route = useRoute()
 const router = useRouter()
@@ -35,6 +36,11 @@ async function loadProducts(){
 
     }
     
+}
+
+async function loadCategory() {
+    cateList.value = await getCategory();
+    cateList.value = ([...new Set(products.value.map(JSON.stringify))].map(JSON.parse));  
 }
 
 onMounted(()=> {
@@ -86,10 +92,22 @@ function sortPrice(sortName : string){
     }
 }
 
-
+/** 카테고리함수는 메인처럼 페이지 이동하는게 아니라 검색어 함수처럼 만들면 된다. */
+/** 카테고리 함수*/
+async function searchCategory(category){
+    await loadProducts();
+    const search = computed(() => {
+        return products.value.filter( poke => {
+            return poke.category.toLowerCase().includes(category);
+            
+        })
+    })
+    return products.value = search.value;
+}
 
 
 loadProducts();
+loadCategory();
 
 </script>
 
@@ -104,10 +122,18 @@ loadProducts();
                     <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#">
 				        Store
 			        </a>
-
+                        <div class="">
+                            <button @click="searchCategory('텀블러')" class="custom-btn btn-2">텀블러</button>
+                            <button @click="searchCategory('머그')" class="custom-btn btn-2">머그</button>
+                            <button @click="searchCategory('티백')" class="custom-btn btn-2">티백</button>
+                            <button @click="searchCategory('커피용품')" class="custom-btn btn-2">커피용품</button>
+                            <button @click="searchCategory('보온병')" class="custom-btn btn-2">보온병</button>
+                        </div>
                     <div class="flex items-center" id="store-nav-content">
-                    <button @click="sortPrice('low')">가격 낮은순</button>
-                    <button @click="sortPrice('high')">가격 높은순</button>
+                        <div>
+                            <button @click="sortPrice('low')">가격 낮은순</button>
+                            <button @click="sortPrice('high')">가격 높은순</button>
+                        </div>
                         <a class="pl-3 inline-block no-underline hover:text-black" href="#">
                             <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
@@ -202,6 +228,42 @@ loadProducts();
   /*Set to match the Tailwind colour you want the active one to be */
 }
 
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+/* 2 */
+.btn-2 {
+  background: rgb(96,9,240);
+  background: linear-gradient(0deg, rgba(96,9,240,1) 0%, rgba(129,5,240,1) 100%);
+  border: none;
+  
+}
+.btn-2:before {
+  height: 0%;
+  width: 2px;
+}
+.btn-2:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
 button {@apply px-2 py-1 border bg-blue-100 rounded;}
 
 
