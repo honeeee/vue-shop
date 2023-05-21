@@ -33,9 +33,7 @@ async function loadProducts(){
         products.value = await getProduct()
     }else{
         products.value = await getCategoryProduct(selectCate)
-
-    }
-    
+    }  
 }
 
 async function loadCategory() {
@@ -94,15 +92,21 @@ function sortPrice(sortName : string){
 
 /** 카테고리함수는 메인처럼 페이지 이동하는게 아니라 검색어 함수처럼 만들면 된다. */
 /** 카테고리 함수*/
-async function searchCategory(category){
+async function searchCategory(category : string){
     await loadProducts();
-    const search = computed(() => {
-        return products.value.filter( poke => {
-            return poke.category.toLowerCase().includes(category);
-            
+    if(category != '전체'){
+        const search = computed(() => {
+            return products.value.filter( poke => {
+                return poke.category.toLowerCase().includes(category);
+                
+            })
         })
-    })
-    return products.value = search.value;
+        return products.value = search.value;
+
+    }else {
+        loadProducts();
+    }
+    
 }
 
 
@@ -123,6 +127,7 @@ loadCategory();
 				        Store
 			        </a>
                         <div class="">
+                            <button @click="searchCategory('전체')" class="custom-btn btn-2">전체</button>
                             <button @click="searchCategory('텀블러')" class="custom-btn btn-2">텀블러</button>
                             <button @click="searchCategory('머그')" class="custom-btn btn-2">머그</button>
                             <button @click="searchCategory('티백')" class="custom-btn btn-2">티백</button>
