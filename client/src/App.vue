@@ -71,7 +71,7 @@ onMounted(() => {
   <Nav/>
 
   <section class="bg-gray-100 p-8 m-8 rounded-lg">
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </section>
 
   <!-- <ul>
