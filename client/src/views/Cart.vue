@@ -5,29 +5,9 @@ import {getProductId, getCategoryProduct} from '../service/products';
 
 const route = useRoute()
 const router = useRouter()
-const id = route.query.id as string
 
-const product = ref<any[]>({})
-const recommList = ref<any[]>({})
 
-async function loadProdout(){
-  product.value = await getProductId(id)
-  console.log('클릭한 상품 카테고리 : '+product.value.category)
 
-  // 같은 카테고리 상품 추천목록
-  recommList.value = await getCategoryProduct(product.value.category)
-// console.log(recommList.value.length)
-
-//메인에서 넘어오는 오류 수정하니까 같은 카테고리 상품 추천이 안된다...
-  for(var i = 0; i < recommList.value.length; i++){ 
-    if (recommList.value[i].id === product.value.id) { 
-      recommList.value.splice(i, 1); 
-      i--; 
-    }
-  }
-}
-
-loadProdout()
 
 </script>
 
@@ -61,16 +41,7 @@ loadProdout()
       <div style="text-align:center">
         <a class="items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-l">비슷한 상품을 확인하세요</a><br/><br/>
       </div>
-<div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
-      <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col" v-for="recomm in recommList" :key="recomm.id">
-        <router-link :to="`/product?id=${recomm.id}`">
-          <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
-            <div class="pt-3 flex items-center justify-between">
-                <p class="">{{recomm.name}}</p>
-            </div>
-        </router-link>
-      </div>
-</div>
+
 
     </section>
   </main>

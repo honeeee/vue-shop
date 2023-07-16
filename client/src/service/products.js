@@ -126,7 +126,7 @@ async function getCategory(){      // async는 무조건 promise함수임!!
 
 //카테고리별 목록리스트
 async function getCategoryProduct(category){
-    return await fetch(`http://localhost:3000/products/?category=${category}`)
+    return await fetch(`http://localhost:3000/products?category=${category}`)
     .then(res => res.json()) // .then(data => data),  functiond을써야하고 무조건 리턴해줘야함 제발..
     .then(abc)
     //처음에 안된 이유 : 주소 잘못씀, type없이 넘겨줌 됐다!!

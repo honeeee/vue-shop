@@ -7,6 +7,8 @@ import Products from './views/Products.vue'
 import Product from './views/Product.vue'
 import Register from './views/Register.vue'
 import Login from './views/Login.vue'
+import Cart from './views/Cart.vue'
+
 import Join from './views/Join.vue'
 import { createStore } from 'vuex'
 
@@ -22,6 +24,8 @@ const routes = [
   { path: '/products', component: Products },
   { path: '/join', component: Register },
   { path: '/login', component: Login },
+  { path: '/cart', component: Cart },
+
 ]
 
 

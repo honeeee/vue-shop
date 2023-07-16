@@ -37,8 +37,8 @@ loadCategory();
 
   <div>
     <div class="frame">
-      <button v-for="cate in products" :key="cate.category" @click="goToCategoryProduct" class="custom-btn btn-2" >
-          <router-link :to="`/products/?category=${cate.category}`">
+      <button v-for="cate in products" :key="cate.category" class="custom-btn btn-2" >
+          <router-link :to="`/products?category=${cate.category}`">
             {{cate.category}}
           </router-link>
       </button>
